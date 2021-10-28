@@ -1,5 +1,6 @@
 git学习笔记
 
+学习链接：https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304
 1. 安装完成初始化设置 
 git config --giobal user.name "RookieCui"
 git config --global user.email "1195791948@qq.com"
@@ -17,7 +18,9 @@ git commit -m "add message"
 查看仓库当前状态
 git status
 查看修改过的未提交的文件中具体修改的内容
+(注意:查看时是以vim编辑器的状态查看，上下键翻页，查看完成退出输入q)
 git diff readme.txt
+再次提交
 git add readme.txt
 git commit -m "add 1111"
 
@@ -40,3 +43,7 @@ git commit -m "add 1111"
 git reset --hard HEAD^
 回退到某个版本
 git reset --hard (commit id前几位即可)
+
+时间：20211029
+
+下次学习起始链接：https://www.liaoxuefeng.com/wiki/896043488029600/897271968352576
