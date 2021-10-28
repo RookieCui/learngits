@@ -21,7 +21,7 @@ git diff readme.txt
 git add readme.txt
 git commit -m "add 1111"
 
-4.版本回退
+4. 版本回退
 查看提交信息和commit id
     查看提交历史记录（命令窗口没关时才行）
     git log 最近到最远
