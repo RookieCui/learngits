@@ -8,9 +8,9 @@ git config --global user.email "1195791948@qq.com"
 2. 基本操作
 创建版本空仓库（在某个空文件夹中）
 git init 
-将新建的文件添加到仓库（可以多次使用）
+将新建的文件添加到暂存区stage（可以多次使用）
 git add xxx
-将添加到仓库的文件提交到仓库
+将添加到暂存区stage的所有文件提交到仓库master
 git commit -m "add message"
 至此完成首次提交
 
@@ -47,3 +47,16 @@ git reset --hard (commit id前几位即可)
 时间：20211029
 
 下次学习起始链接：https://www.liaoxuefeng.com/wiki/896043488029600/897271968352576
+
+5. 工作区 -->git add-->{stage（暂存区）-->git commit-->master(仓库)}大括号内合称版本库
+工作区新增文件，未add入暂存区，其状态是untracked
+git commit完成后，stage处于空状态
+
+6. 管理修改
+git只是跟踪和提交修改部分的内容，修改后必须按程序先将修改加到暂存区，再将其提交到仓库，修改部分才能提交到仓库，如果修改后未提交到暂存区是无法直接将修改提交到仓库的
+
+查看工作区和版本库里面最新版本的区别
+git diff HEAD --readme.txt
+
+7. 撤销修改
+
