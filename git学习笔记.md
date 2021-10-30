@@ -1,4 +1,4 @@
-git学习笔记
+## git学习笔记
 
 学习链接：https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304
 1. 安装完成初始化设置 
@@ -59,4 +59,32 @@ git只是跟踪和提交修改部分的内容，修改后必须按程序先将�
 git diff HEAD --readme.txt
 
 7. 撤销修改
+撤销修改让这个文件回到最近一次git commit或git add时的状态
+git checkout -- <file>
 
+如果要撤销暂存区尚未commit的修改，应该先将暂存区版本回退到仓库中的最近的版本，
+然后将工作区checkout回去即可
+git reset HEAD <file>
+git checkout -- <file>
+
+8. 删除文件
+rm <file>是会被git跟踪的
+从仓库恢复被删除文件
+git checkout -- <file>
+
+删除文件，与add类似
+git rm <flie>
+同步删除到仓库
+git commit -m ""
+
+9. github远程仓库托管
+创建SSH Key
+ssh-keygen -t rsa -C "youremail@example.com"
+用户主目录里生成.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥
+github上添加公钥即可上传代码，任何一台电脑想上传程序都需要将其SSH公钥添加到github中
+
+时间：20211029
+
+明天学习链接：https://www.liaoxuefeng.com/wiki/896043488029600/898732864121440
+
+10. 添加远程仓库
