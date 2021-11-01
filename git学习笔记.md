@@ -145,3 +145,104 @@ git log --graph --pretty=oneline --abbrev-commit
 
 时间：20211031
 下次学习链接：https://www.liaoxuefeng.com/wiki/896043488029600/900005860592480
+
+13. 分支管理策略
+分支合并时的Fast forward模式，删除分支后回丢掉分支信息，可以强制禁止这种模式，禁止后merge时git会生成一个新的commit
+禁用Fast forward模式合并分支
+git merge --no-ff -m "merge with no-ff"
+查看合并后的历史
+git log --graph --pretty=oneline --abbrev-commit
+
+14. bug分支
+临时有bug需要修复时可以将当前工作储藏起来等解决完bug在继续恢复工作
+把当前工作存起来
+git stash
+切换到main分支
+git switch main
+创建issue分支
+git switch -c issue-101
+修复完成提交bug
+git add <file>
+git commit -m "fix bug 101"
+修复完成回到main分支并合并分支
+git switch main
+git merge --no-ff -m "merge bug fix 101" issue-101
+修复完成回到dev分支干活
+git switch dev
+git status
+查看并恢复工作区内容
+git stash list
+git stash apply / git stash apply stash@{0}
+完成恢复
+
+另外一种情况，bug101刚刚存在于main分支，而dev分支时main分支早些时候分出去的，bug101也存在于dev分支故需要将main分支修复好的bug不知道dev分支
+只需要将提交的
+
+切换到dev分支
+git switch dev
+复制bug提交
+git  cherry-pick <commit>
+
+15. Feature分支
+开发新功能时的创建这个分支，然后开发完成后将这个分支和主分支合并然后将该分支删除就行
+创建新分支
+git switch -c feature-vulcan
+开发完成新功能并提交
+git add <file>
+git commit -m "add feature vulcan"
+切回dev分支并合并
+git merge --no-ff feature-vulcan
+如果要撤销并删除分支
+git branch -d feature-vulcan
+强制删除分支
+git branch -D feature-vulcan
+
+16. 多人协作
+查看远程信息库
+git remote (-v) 加-v可以显示更加详细的信息
+推送分支,要指出本地的分支，或者其他想要推送的分支
+git push oring main/dev
+
+* master分支是主分支，因此要时刻与远程同步；
+* dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+* bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+* feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发
+
+抓取分支
+git clone git@github.com:RookieCui/learngit.git
+当你从远程clone下来代码只有main分支需要重新创建dev分支
+git checkout -b dev oring/dev
+开发提交
+git add env.txt
+git commit -m "add env"
+将dev分支push到远程端
+git push origin dev
+如果和别人的文件冲突，需要将远程端的文件抓下来然后解决冲突再推送
+git pull
+没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：
+git branch --set-upstream-to=origin/dev dev
+git pull
+手动解决冲突并合并
+推送远程分支后分支一坨一坨的，通过git rebase可以优化
+
+17. 标签管理
+发布新版本时在版本库中打一个标签，与commit息息相关
+在main分支下打标签
+git tag v1.0
+将之前提交的commit打标签
+git tag v0.9 <commit id>
+git tag (按照字母顺序查看标签)
+查看标签信息
+git show <tagname>
+创建带有说明的标签，用-a指定标签名，-m指定说明文字
+git tag -a v0.1 -m "version 0.1 released" 1094adb
+
+删除标签
+git tag -d v0.1
+推送标签到远程
+git push origin <tagname>
+一次性推送全部尚未推送到远程的本地标签
+git push origin --tags
+删除远程标签
+git push origin :refs/tags/tagname
+学完收工
